@@ -62,7 +62,7 @@ struct HomeView: View {
             Spacer(minLength: 0)
         }
         .padding(.top)
-        .navigationTitle("Home")
+        .navigationTitle("Welcome Back!")
         .onAppear(){
             self.homeViewModel.GetAvaliableSolts()
             self.homeViewModel.GetReservedSolts()

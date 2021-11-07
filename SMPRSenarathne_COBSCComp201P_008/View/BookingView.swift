@@ -13,23 +13,31 @@ struct BookingView: View {
         NavigationView{
             VStack{
                 Form{
-                if let user = bookingViewModel.member.first{
-                    Section(header: Text("User Information")){
-                        VStack(alignment: .leading){
-                            Text("Registration Number") .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                            Spacer(minLength: 10)
-                            Text(user.id)
-                                .foregroundColor(.gray)
-                                .fontWeight(.semibold)
-                        }
-                        VStack(alignment: .leading){
-                            Text("Vehicle Number") .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                            Spacer(minLength: 10)
-                            Text(user.vehicleNo)
-                                .foregroundColor(.gray)
-                                .fontWeight(.semibold)
+                    if let user = bookingViewModel.member.first{
+                        Section(header: Text("Booking Information")){
+                            VStack(alignment: .leading){
+                                Text("Registration Number") .fontWeight(.regular)
+                                    .foregroundColor(.black)
+                                Spacer(minLength: 10)
+                                Text(user.id)
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.semibold)
+                            }
+                            VStack(alignment: .leading){
+                                Text("Vehicle Number") .fontWeight(.regular)
+                                    .foregroundColor(.black)
+                                Spacer(minLength: 10)
+                                Text(user.vehicleNo)
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.semibold)
+                            }
+                            VStack(alignment: .leading){
+                                Text("Parking Lot") .fontWeight(.regular)
+                                    .foregroundColor(.black)
+                                Spacer(minLength: 10)
+                                Text(user.vehicleNo)
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.semibold)
                             }
                         }
                     }
