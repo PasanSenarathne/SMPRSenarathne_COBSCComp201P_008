@@ -9,34 +9,45 @@ import SwiftUI
 
 struct BookingView: View {
     @StateObject var bookingViewModel = BookingViewModel()
+    @StateObject var bookingModel = BookingModel()
     var body: some View {
         NavigationView{
             VStack{
                 Form{
-                if let user = bookingViewModel.member.first{
-                    Section(header: Text("User Information")){
-                        VStack(alignment: .leading){
-                            Text("Registration Number") .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                            Spacer(minLength: 10)
-                            Text(user.id)
-                                .foregroundColor(.gray)
-                                .fontWeight(.semibold)
+                    if let user = bookingViewModel.member.first{
+                        Section(header: Text("Booking Information")){
+                            VStack(alignment: .leading){
+                                Text("Registration Number") .fontWeight(.regular)
+                                    .foregroundColor(.black)
+                                Spacer(minLength: 10)
+                                Text(user.id)
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.semibold)
+                            }
+                            VStack(alignment: .leading){
+                                Text("Vehicle Number") .fontWeight(.regular)
+                                    .foregroundColor(.black)
+                                Spacer(minLength: 10)
+                                Text(user.vehicleNo)
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.semibold)
+                            }
+                         
                         }
-                        VStack(alignment: .leading){
-                            Text("Vehicle Number") .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                            Spacer(minLength: 10)
-                            Text(user.vehicleNo)
-                                .foregroundColor(.gray)
-                                .fontWeight(.semibold)
+                        Section(){
+                            VStack(alignment: .leading){
+                                Picker("Select A Parking Lot", selection: $bookingModel.selectedParkingLot){
+                                    ForEach(bookingViewModel.avaliableParkingLots){ParkingLotsForPicker in
+                                        Text(ParkingLotsForPicker.parkingLotCode)
+                                    }
+                                }
                             }
                         }
                     }
                     Section{
                         HStack{
                             Spacer()
-                            Button(action: {}, label: {
+                            Button(action: { bookingViewModel.Reservation(bookingInfo: bookingModel, memberID: $bookingViewModel.member.first?.id ?? "")}, label: {
                                 Text("Reserved")
                                 .foregroundColor(Color.blue)
                                 .fontWeight(.semibold)
@@ -59,8 +70,9 @@ struct BookingView: View {
             }
             .navigationTitle("Booking")
             .onAppear(){
-                        self.bookingViewModel.GetUserDeatils()
-                }
+                    self.bookingViewModel.GetUserDeatils()
+                    self.bookingViewModel.GetAvailableParkingLots()
+            }
         }
     }
 }

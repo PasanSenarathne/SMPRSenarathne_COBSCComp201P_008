@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var index = 0
-    @ObservedObject var homeViewModel = HomeViewModel()
+    @StateObject var homeViewModel = HomeViewModel()
     var body: some View {
         NavigationView{
         VStack{
@@ -62,7 +62,7 @@ struct HomeView: View {
             Spacer(minLength: 0)
         }
         .padding(.top)
-        .navigationTitle("Home")
+        .navigationTitle("Welcome Back!")
         .onAppear(){
             self.homeViewModel.GetAvaliableSolts()
             self.homeViewModel.GetReservedSolts()
