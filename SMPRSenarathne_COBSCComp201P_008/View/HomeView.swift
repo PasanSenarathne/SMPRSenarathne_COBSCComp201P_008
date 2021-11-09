@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var index = 0
-    @ObservedObject var homeViewModel = HomeViewModel()
+    @StateObject var homeViewModel = HomeViewModel()
     var body: some View {
         NavigationView{
         VStack{

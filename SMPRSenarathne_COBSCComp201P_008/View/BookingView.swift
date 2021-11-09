@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookingView: View {
     @StateObject var bookingViewModel = BookingViewModel()
+    @StateObject var bookingModel = BookingModel()
     var body: some View {
         NavigationView{
             VStack{
@@ -31,20 +32,22 @@ struct BookingView: View {
                                     .foregroundColor(.gray)
                                     .fontWeight(.semibold)
                             }
+                         
+                        }
+                        Section(){
                             VStack(alignment: .leading){
-                                Text("Parking Lot") .fontWeight(.regular)
-                                    .foregroundColor(.black)
-                                Spacer(minLength: 10)
-                                Text(user.vehicleNo)
-                                    .foregroundColor(.gray)
-                                    .fontWeight(.semibold)
+                                Picker("Select A Parking Lot", selection: $bookingModel.selectedParkingLot){
+                                    ForEach(bookingViewModel.avaliableParkingLots){ParkingLotsForPicker in
+                                        Text(ParkingLotsForPicker.parkingLotCode)
+                                    }
+                                }
                             }
                         }
                     }
                     Section{
                         HStack{
                             Spacer()
-                            Button(action: {}, label: {
+                            Button(action: { bookingViewModel.Reservation(bookingInfo: bookingModel, memberID: $bookingViewModel.member.first?.id ?? "")}, label: {
                                 Text("Reserved")
                                 .foregroundColor(Color.blue)
                                 .fontWeight(.semibold)
@@ -67,8 +70,9 @@ struct BookingView: View {
             }
             .navigationTitle("Booking")
             .onAppear(){
-                        self.bookingViewModel.GetUserDeatils()
-                }
+                    self.bookingViewModel.GetUserDeatils()
+                    self.bookingViewModel.GetAvailableParkingLots()
+            }
         }
     }
 }
