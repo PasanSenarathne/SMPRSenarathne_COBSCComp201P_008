@@ -89,5 +89,20 @@ class AuthViewModel : ObservableObject{
         try? auth.signOut()
         self.signedIn = false
     }
+    
+    func HandleForgotPassword(userInfo: UserModel){
+        auth.sendPasswordReset(withEmail: userInfo.email){(error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                else{
+                    print("Password reset link successfully sent ")
+                    self.signedIn = false
+                }
+            }
+            
+        }
+    }
 }
 
