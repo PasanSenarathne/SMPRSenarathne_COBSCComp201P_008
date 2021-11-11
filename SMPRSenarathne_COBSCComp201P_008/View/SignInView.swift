@@ -24,11 +24,7 @@ struct SignInView: View {
                         .padding()
                     SecureField("Password", text: $userModel.password)
                         .padding()
-                    Button(action: {}, label: {
-                        Text("Forgot Password?")
-                        .foregroundColor(Color.blue)
-                        .fontWeight(.light)
-                    })
+                    NavigationLink("Forgot Password?", destination:ForgotPasswordView())
                     Button(action: {
                         authViewModel.HandleSignIn(user : userModel)
                     }, label: {

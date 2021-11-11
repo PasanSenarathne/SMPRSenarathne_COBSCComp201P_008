@@ -58,8 +58,8 @@ class BookingViewModel : ObservableObject{
         let object :[String: Any] = [
             "MemberID" : bookingInfo.memberID,
             "ParkingLotID" : bookingInfo.selectedParkingLot,
-            "ResevationDate" : "2021-11-10",
-            "ResevationTime" : "02:30",
+            "ResevationDate" : Data(),
+            "ResevationTime" : Time(),
             "ReservationStatus" : "Pending" ]
         var ref: DocumentReference? = nil
         ref = self.db.collection("Reservations").addDocument(data: object){ err in
@@ -77,6 +77,20 @@ class BookingViewModel : ObservableObject{
                 }
             }
         }
+    }
+    
+    func Data() -> String {
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "yyyy-MM-dd"
+        let date = dateFormater.string(from: Date() as Date)
+        return date
+    }
+    
+    func Time() -> String {
+        let timeFormater = DateFormatter()
+        timeFormater.dateFormat = "HH:mm"
+        let time = timeFormater.string(from: Date() as Date)
+        return time
     }
 }
 

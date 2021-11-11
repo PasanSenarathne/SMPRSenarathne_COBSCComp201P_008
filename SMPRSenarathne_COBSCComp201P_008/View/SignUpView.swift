@@ -26,6 +26,8 @@ struct SignUpView: View {
                     }
                     Section(header: Text("User Credentials")){
                         TextField("Email", text: $userModel.email)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
                         SecureField("Password", text: $userModel.password)
                         SecureField("Confirm Password", text: $userModel.confirmPass)
                     }

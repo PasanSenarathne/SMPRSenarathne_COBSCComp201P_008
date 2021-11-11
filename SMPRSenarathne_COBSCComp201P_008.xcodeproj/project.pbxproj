@@ -27,6 +27,8 @@
 		2257C3692737A81B00699FDF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257C3682737A81B00699FDF /* HomeViewModel.swift */; };
 		2257C36B2737A83F00699FDF /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257C36A2737A83F00699FDF /* BookingViewModel.swift */; };
 		2257C36D2737A85900699FDF /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257C36C2737A85900699FDF /* SettingsViewModel.swift */; };
+		2264A996273BBA91008DAEA3 /* LaunchView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2264A995273BBA91008DAEA3 /* LaunchView.storyboard */; };
+		227898F5273C1B5C00E0B27A /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227898F4273C1B5C00E0B27A /* ForgotPasswordView.swift */; };
 		22B1F5952737D828002CF7EF /* BookingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B1F5942737D828002CF7EF /* BookingModel.swift */; };
 		546E65069BFB90EECACBF8FB /* Pods_SMPRSenarathne_COBSCComp201P_008_SMPRSenarathne_COBSCComp201P_008UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DCB8EC111BDBBF4E6D8424 /* Pods_SMPRSenarathne_COBSCComp201P_008_SMPRSenarathne_COBSCComp201P_008UITests.framework */; };
 		715FD93A46E0ED124358E955 /* Pods_SMPRSenarathne_COBSCComp201P_008.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9459D998E87AB1E355B14707 /* Pods_SMPRSenarathne_COBSCComp201P_008.framework */; };
@@ -75,6 +77,8 @@
 		2257C3682737A81B00699FDF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2257C36A2737A83F00699FDF /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
 		2257C36C2737A85900699FDF /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		2264A995273BBA91008DAEA3 /* LaunchView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchView.storyboard; sourceTree = "<group>"; };
+		227898F4273C1B5C00E0B27A /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		22B1F5942737D828002CF7EF /* BookingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingModel.swift; sourceTree = "<group>"; };
 		370684B91C372D2D27B386D2 /* Pods-SMPRSenarathne_COBSCComp201P_008.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMPRSenarathne_COBSCComp201P_008.release.xcconfig"; path = "Target Support Files/Pods-SMPRSenarathne_COBSCComp201P_008/Pods-SMPRSenarathne_COBSCComp201P_008.release.xcconfig"; sourceTree = "<group>"; };
 		63BE889F508BC910C7E80FC0 /* Pods-SMPRSenarathne_COBSCComp201P_008Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMPRSenarathne_COBSCComp201P_008Tests.release.xcconfig"; path = "Target Support Files/Pods-SMPRSenarathne_COBSCComp201P_008Tests/Pods-SMPRSenarathne_COBSCComp201P_008Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 				2257C3622737A79A00699FDF /* SettingsView.swift */,
 				2257C3642737A7B600699FDF /* HomeView.swift */,
 				2257C3662737A7F200699FDF /* BookingView.swift */,
+				2264A995273BBA91008DAEA3 /* LaunchView.storyboard */,
+				227898F4273C1B5C00E0B27A /* ForgotPasswordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 			files = (
 				2257C32E2737A3E100699FDF /* Preview Assets.xcassets in Resources */,
 				2257C32B2737A3E100699FDF /* Assets.xcassets in Resources */,
+				2264A996273BBA91008DAEA3 /* LaunchView.storyboard in Resources */,
 				2257C3512737A59300699FDF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +481,7 @@
 			files = (
 				2257C35D2737A6FC00699FDF /* ParkingLotModel.swift in Sources */,
 				2257C35F2737A74B00699FDF /* SignInView.swift in Sources */,
+				227898F5273C1B5C00E0B27A /* ForgotPasswordView.swift in Sources */,
 				2257C3292737A3E000699FDF /* ContentView.swift in Sources */,
 				2257C3652737A7B600699FDF /* HomeView.swift in Sources */,
 				2257C36B2737A83F00699FDF /* BookingViewModel.swift in Sources */,
@@ -653,6 +661,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchView;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -682,6 +691,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchView;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
