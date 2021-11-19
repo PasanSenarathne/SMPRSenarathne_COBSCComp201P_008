@@ -13,39 +13,39 @@ struct SignUpView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
         VStack{
-                Form{
-                    Section(header: Text("Personal Information")) {
-                        TextField("First Name", text: $memberModel.firstName)
-                        TextField("Last Name", text: $memberModel.lastName)
-                        TextField("NIC", text: $memberModel.nic)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                        TextField("Vehicle No", text: $memberModel.vehicleNo)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                    }
-                    Section(header: Text("User Credentials")){
-                        TextField("Email", text: $userModel.email)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                        SecureField("Password", text: $userModel.password)
-                        SecureField("Confirm Password", text: $userModel.confirmPass)
-                    }
-                    Section(){
-                        HStack{
-                            Spacer()
+            Form{
+                Section(header: Text("Personal Information")) {
+                    TextField("First Name", text: $memberModel.firstName)
+                    TextField("Last Name", text: $memberModel.lastName)
+                    TextField("NIC", text: $memberModel.nic)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                    TextField("Vehicle No", text: $memberModel.vehicleNo)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                }
+                Section(header: Text("User Credentials")){
+                    TextField("Email", text: $userModel.email)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                    SecureField("Password", text: $userModel.password)
+                    SecureField("Confirm Password", text: $userModel.confirmPass)
+                }
+                Section(){
+                    HStack{
+                        Spacer()
                         Button(action: {
-                         authViewModel.HandleSignUp(member: memberModel, userInfo: userModel)
+                            authViewModel.HandleSignUp(member: memberModel, userInfo: userModel)
                         }, label: {
                             Text("Sign Up")
                         })
-                            Spacer()
-                        }
+                        Spacer()
                     }
-               
                 }
+                
             }
-            .navigationTitle("Sign Up")
+        }
+        .navigationTitle("Sign Up")
     }
 }
 

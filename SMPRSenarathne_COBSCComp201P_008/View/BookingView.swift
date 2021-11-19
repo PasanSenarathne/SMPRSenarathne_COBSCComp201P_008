@@ -6,10 +6,23 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct BookingView: View {
     @StateObject var bookingViewModel = BookingViewModel()
     @StateObject var bookingModel = BookingModel()
+    @State var isPerentingScanner = false
+    
+    var scannerSheet: some View{
+        CodeScannerView(codeTypes: [.qr], completion: {
+            result in
+            if case let .success(code) = result{
+                self.bookingModel.selectedParkingLot = code
+                self.isPerentingScanner = false
+                bookingViewModel.Reservation(bookingInfo: bookingModel, memberID: $bookingViewModel.member.first?.id ?? "")
+            }
+        })
+    }
     var body: some View {
         NavigationView{
             VStack{
@@ -32,13 +45,12 @@ struct BookingView: View {
                                     .foregroundColor(.gray)
                                     .fontWeight(.semibold)
                             }
-                         
                         }
                         Section(){
                             VStack(alignment: .leading){
                                 Picker("Select A Parking Lot", selection: $bookingModel.selectedParkingLot){
                                     ForEach(bookingViewModel.avaliableParkingLots){ParkingLotsForPicker in
-                                        Text(ParkingLotsForPicker.parkingLotCode)
+                                        Text(ParkingLotsForPicker.parkingLotCode + " (" + ParkingLotsForPicker.parkingLotType + ")")
                                     }
                                 }
                             }
@@ -49,8 +61,8 @@ struct BookingView: View {
                             Spacer()
                             Button(action: { bookingViewModel.Reservation(bookingInfo: bookingModel, memberID: $bookingViewModel.member.first?.id ?? "")}, label: {
                                 Text("Reserved")
-                                .foregroundColor(Color.blue)
-                                .fontWeight(.semibold)
+                                    .foregroundColor(Color.blue)
+                                    .fontWeight(.semibold)
                             })
                             Spacer()
                         }
@@ -58,11 +70,14 @@ struct BookingView: View {
                     Section{
                         HStack{
                             Spacer()
-                            Button(action: {}, label: {
+                            Button(action: {self.isPerentingScanner = true}, label: {
                                 Text("Scan QR Code")
-                                .foregroundColor(Color.green)
-                                .fontWeight(.semibold)
+                                    .foregroundColor(Color.green)
+                                    .fontWeight(.semibold)
                             })
+                                .sheet(isPresented: $isPerentingScanner){
+                                    self.scannerSheet
+                                }
                             Spacer()
                         }
                     }
@@ -70,8 +85,8 @@ struct BookingView: View {
             }
             .navigationTitle("Booking")
             .onAppear(){
-                    self.bookingViewModel.GetUserDeatils()
-                    self.bookingViewModel.GetAvailableParkingLots()
+                self.bookingViewModel.GetUserDeatils()
+                self.bookingViewModel.GetAvailableParkingLots()
             }
         }
     }

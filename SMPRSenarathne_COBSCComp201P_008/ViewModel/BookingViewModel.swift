@@ -19,37 +19,38 @@ class BookingViewModel : ObservableObject{
         member.removeAll()
         let userID = firebaseAuth.currentUser?.uid
         db.collection("Members").whereField("UserID", isEqualTo: userID ?? "").addSnapshotListener { (querySnapshot, error) in
-             guard let documents = querySnapshot?.documents else {
-                 print("No documents")
-                 return
-             }
-             self.member = documents.map { (queryDocumentSnapshot) -> MemberDetails in
-                 let data = queryDocumentSnapshot.data()
-                 let id = queryDocumentSnapshot.documentID
-                 let userID = data["UserID"] as? String ?? ""
-                 let fName = data["FirstName"] as? String ?? ""
-                 let lName = data["LastName"] as? String ?? ""
-                 let nic = data["NIC"] as? String ?? ""
-                 let vehicleNo = data["VehicleNo"] as? String ?? ""
-                 print(data)
-                 return MemberDetails(id: id,userID: userID, firstName: fName, lastName: lName, nic: nic, vehicleNo: vehicleNo)
-             }
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            self.member = documents.map { (queryDocumentSnapshot) -> MemberDetails in
+                let data = queryDocumentSnapshot.data()
+                let id = queryDocumentSnapshot.documentID
+                let userID = data["UserID"] as? String ?? ""
+                let fName = data["FirstName"] as? String ?? ""
+                let lName = data["LastName"] as? String ?? ""
+                let nic = data["NIC"] as? String ?? ""
+                let vehicleNo = data["VehicleNo"] as? String ?? ""
+                print(data)
+                return MemberDetails(id: id,userID: userID, firstName: fName, lastName: lName, nic: nic, vehicleNo: vehicleNo)
+            }
         }
     }
     
     func GetAvailableParkingLots(){
         avaliableParkingLots.removeAll()
         db.collection("ParkingLots").whereField("Status", isEqualTo: "Available").addSnapshotListener { (querySnapshot, error) in
-             guard let documents = querySnapshot?.documents else {
-                 print("No documents")
-                 return
-             }
-             self.avaliableParkingLots = documents.map { (queryDocumentSnapshot) -> ParkingLotsForPicker in
-                 let data = queryDocumentSnapshot.data()
-                 let id = queryDocumentSnapshot.documentID
-                 let parkingLotCode = data["ParkingLotCode"] as? String ?? ""
-                 return ParkingLotsForPicker(id: id,parkingLotCode: parkingLotCode)
-             }
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            self.avaliableParkingLots = documents.map { (queryDocumentSnapshot) -> ParkingLotsForPicker in
+                let data = queryDocumentSnapshot.data()
+                let id = queryDocumentSnapshot.documentID
+                let parkingLotCode = data["ParkingLotCode"] as? String ?? ""
+                let parkingLotType = data["ParkingLotType"] as? String ?? ""
+                return ParkingLotsForPicker(id: id,parkingLotCode: parkingLotCode,parkingLotType: parkingLotType)
+            }
         }
     }
     
@@ -58,8 +59,9 @@ class BookingViewModel : ObservableObject{
         let object :[String: Any] = [
             "MemberID" : bookingInfo.memberID,
             "ParkingLotID" : bookingInfo.selectedParkingLot,
-            "ResevationDate" : Data(),
-            "ResevationTime" : Time(),
+            "ResevationDate" : BookingDate(),
+            "ResevationTime" : BookingTime(),
+            "ResevationCanceledTime" : BookingCanceledTime(),
             "ReservationStatus" : "Pending" ]
         var ref: DocumentReference? = nil
         ref = self.db.collection("Reservations").addDocument(data: object){ err in
@@ -67,29 +69,36 @@ class BookingViewModel : ObservableObject{
                 print("Error writing document: \(err)")
             } else {
                 print("Reservation Document successfully written!")
-                self.db.collection("ParkingLots").document(bookingInfo.selectedParkingLot).updateData(["Status" : "Reserved"]){ err in
+                self.db.collection("ParkingLots").document(bookingInfo.selectedParkingLot).updateData(["Status" : "Reserved", "VehicleNo": self.member.first?.vehicleNo ?? "", "ResevationCanceledTime": self.BookingCanceledTime()]){ err in
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {
                         print("Parking Lot Document successfully Updated!")
-                     
+                        
                     }
                 }
             }
         }
     }
     
-    func Data() -> String {
+    func BookingDate() -> String {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         let date = dateFormater.string(from: Date() as Date)
         return date
     }
     
-    func Time() -> String {
+    func BookingTime() -> String {
         let timeFormater = DateFormatter()
         timeFormater.dateFormat = "HH:mm"
         let time = timeFormater.string(from: Date() as Date)
+        return time
+    }
+    
+    func BookingCanceledTime() -> String {
+        let timeFormater = DateFormatter()
+        timeFormater.dateFormat = "HH:mm"
+        let time = timeFormater.string(from: Date().addingTimeInterval(10*60) as Date)
         return time
     }
 }

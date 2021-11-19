@@ -12,27 +12,27 @@ struct ForgotPasswordView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
         VStack{
-                Form{
-                    Section(header: Text("Please provide your email here.")){
-                        TextField("Email", text: $userModel.email)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                    }
-                    Section(){
-                        HStack{
-                            Spacer()
+            Form{
+                Section(header: Text("Please provide your email here.")){
+                    TextField("Email", text: $userModel.email)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                }
+                Section(){
+                    HStack{
+                        Spacer()
                         Button(action: {
-                         authViewModel.HandleForgotPassword(userInfo: userModel)
+                            authViewModel.HandleForgotPassword(userInfo: userModel)
                         }, label: {
                             Text("Submit")
                         })
-                            Spacer()
-                        }
+                        Spacer()
                     }
-               
                 }
+                
             }
-            .navigationTitle("Forgot Password?")
+        }
+        .navigationTitle("Forgot Password?")
     }
 }
 

@@ -16,16 +16,16 @@ struct ContentView: View {
                     Image(systemName: "house")
                     Text("Home")
                 }
-          
+            
             if authViewModel.signedIn{
                 BookingView()
                     .onAppear{
                         authViewModel.signedIn = authViewModel.isSignedIn
                     }
                     .tabItem{
-                    Image(systemName: "calendar.badge.plus")
-                    Text("Booking")
-                }
+                        Image(systemName: "calendar.badge.plus")
+                        Text("Booking")
+                    }
             }
             
             else{
@@ -34,8 +34,8 @@ struct ContentView: View {
                         authViewModel.signedIn = authViewModel.isSignedIn
                     }
                     .tabItem{
-                    Image(systemName: "calendar.badge.plus")
-                    Text("Booking")
+                        Image(systemName: "calendar.badge.plus")
+                        Text("Booking")
                     }
             }
             if authViewModel.signedIn{
