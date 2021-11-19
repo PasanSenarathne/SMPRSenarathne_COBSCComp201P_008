@@ -11,10 +11,13 @@ struct ParkingLotModel: Identifiable{
     var id: String
     var parkingLotCode: String
     var parkingLotType: String
+    var vehicleNo: String
+    var reservationCanceledTime: String
     var status: String
 }
 
 struct ParkingLotsForPicker: Identifiable{
     var id: String
     var parkingLotCode: String
+    var parkingLotType: String
 }

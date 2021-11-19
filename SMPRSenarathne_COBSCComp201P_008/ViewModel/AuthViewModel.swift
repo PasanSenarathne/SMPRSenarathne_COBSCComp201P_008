@@ -15,49 +15,51 @@ class AuthViewModel : ObservableObject{
     var db = Firestore.firestore()
     
     @Published var signedIn = false
+    @Published var isAlertPresent = false
+    @Published var error :Error?
+    @Published var alertError = ""
+    @Published var validationError = ""
+    private let authService : AuthServiceProtocol
     
+    init(authSerive: AuthServiceProtocol = AuthService()){
+        self.authService = authSerive
+    }
     var isSignedIn: Bool{
-           return auth.currentUser != nil
-       }
+        return auth.currentUser != nil
+    }
     
     func HandleSignIn(user : UserModel){
-        auth.signIn(withEmail: user.email, password: user.password){ (authResult, error) in
-            if let error = error as NSError? {
-              switch AuthErrorCode(rawValue: error.code) {
-                  case .operationNotAllowed:
-                    print("Error: Indicates that email and password accounts are not enabled. Enable them in the Auth section of the Firebase console.")
-                  case .userDisabled:
-                    print("Error: The user account has been disabled by an administrator.")
-                  case .wrongPassword:
-                    print("Error: The password is invalid or the user does not have a password.")
-                  case .invalidEmail:
-                    print("Error: Indicates the email address is malformed.")
-                  default:
-                      print("Error: \(error.localizedDescription)")
-                  }
-            }
-            else {
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+         self.validationError = ""
+         }*/
+        authService.SignIn(email: user.email, password: user.password ){ result in
+            switch result{
+            case .success:
                 DispatchQueue.main.async {
                     print("User signs in successfully")
                     self.signedIn = true
                 }
+            case let .failure(error):
+                self.error = error
+                self.alertError = error.localizedDescription
+                self.isAlertPresent = true
             }
         }
     }
     
     func HandleSignUp(member: MemberModel, userInfo:UserModel){
-    Auth.auth().createUser(withEmail: userInfo.email, password: userInfo.password){ (authResult, error) in
+        Auth.auth().createUser(withEmail: userInfo.email, password: userInfo.password){ (authResult, error) in
             if let error = error as NSError? {
-              switch AuthErrorCode(rawValue: error.code) {
-                  case .operationNotAllowed:
+                switch AuthErrorCode(rawValue: error.code) {
+                case .operationNotAllowed:
                     print("Error: Indicates that email and password accounts are not enabled. Enable them in the Auth section of the Firebase console.")
-                  case .emailAlreadyInUse:
+                case .emailAlreadyInUse:
                     print("Error: Email Address already used.")
-                  case .weakPassword:
+                case .weakPassword:
                     print("Error: The password is week.")
-                  default:
-                      print("Error: \(error.localizedDescription)")
-                  }
+                default:
+                    print("Error: \(error.localizedDescription)")
+                }
             } else {
                 let user = Auth.auth().currentUser
                 if let user = user {

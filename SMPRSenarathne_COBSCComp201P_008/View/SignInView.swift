@@ -23,18 +23,22 @@ struct SignInView: View {
                         .autocapitalization(.none)
                         .padding()
                     SecureField("Password", text: $userModel.password)
+                        .foregroundColor(Color.gray)
                         .padding()
                     NavigationLink("Forgot Password?", destination:ForgotPasswordView())
                     Button(action: {
                         authViewModel.HandleSignIn(user : userModel)
                     }, label: {
                         Text("Sign In")
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 45)
-                        .background(Color.blue)
-                        .foregroundColor(Color.white)
-                        .clipShape(Capsule())
+                            .fontWeight(.bold)
+                            .frame(width: 200, height: 45)
+                            .background(Color.blue)
+                            .foregroundColor(Color.white)
+                            .clipShape(Capsule())
                     }).padding(.top,25)
+                        .alert(isPresented: $authViewModel.isAlertPresent) {
+                            Alert(title: Text("Error"), message: Text(authViewModel.alertError))
+                        }
                 }
                 HStack(){
                     Text("Don't have an account?")
