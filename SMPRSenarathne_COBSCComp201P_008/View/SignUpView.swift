@@ -13,6 +13,7 @@ struct SignUpView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
         VStack{
+            Text(authViewModel.validationErrorForSignUp).foregroundColor(Color.red).padding()
             Form{
                 Section(header: Text("Personal Information")) {
                     TextField("First Name", text: $memberModel.firstName)
@@ -38,7 +39,9 @@ struct SignUpView: View {
                             authViewModel.HandleSignUp(member: memberModel, userInfo: userModel)
                         }, label: {
                             Text("Sign Up")
-                        })
+                        }).alert(isPresented: $authViewModel.isAlertPresent) {
+                            Alert(title: Text("Error"), message: Text(authViewModel.alertError))
+                        }
                         Spacer()
                     }
                 }

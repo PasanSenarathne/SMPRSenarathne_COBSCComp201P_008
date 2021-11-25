@@ -33,7 +33,9 @@
 		2257C36D2737A85900699FDF /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257C36C2737A85900699FDF /* SettingsViewModel.swift */; };
 		2264A996273BBA91008DAEA3 /* LaunchView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2264A995273BBA91008DAEA3 /* LaunchView.storyboard */; };
 		227898F5273C1B5C00E0B27A /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227898F4273C1B5C00E0B27A /* ForgotPasswordView.swift */; };
+		227CE2AE274F3A9000062AD5 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CE2AD274F3A9000062AD5 /* TermsAndConditionsView.swift */; };
 		22B1F5952737D828002CF7EF /* BookingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B1F5942737D828002CF7EF /* BookingModel.swift */; };
+		22B61E99274ECC43002A9DC7 /* SignInViewUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B61E98274ECC43002A9DC7 /* SignInViewUITest.swift */; };
 		546E65069BFB90EECACBF8FB /* Pods_SMPRSenarathne_COBSCComp201P_008_SMPRSenarathne_COBSCComp201P_008UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DCB8EC111BDBBF4E6D8424 /* Pods_SMPRSenarathne_COBSCComp201P_008_SMPRSenarathne_COBSCComp201P_008UITests.framework */; };
 		715FD93A46E0ED124358E955 /* Pods_SMPRSenarathne_COBSCComp201P_008.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9459D998E87AB1E355B14707 /* Pods_SMPRSenarathne_COBSCComp201P_008.framework */; };
 		BDE17DA94FB312BD70517985 /* Pods_SMPRSenarathne_COBSCComp201P_008Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5A7F7C0A2D6913CB81B969 /* Pods_SMPRSenarathne_COBSCComp201P_008Tests.framework */; };
@@ -87,7 +89,9 @@
 		2257C36C2737A85900699FDF /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		2264A995273BBA91008DAEA3 /* LaunchView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchView.storyboard; sourceTree = "<group>"; };
 		227898F4273C1B5C00E0B27A /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		227CE2AD274F3A9000062AD5 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		22B1F5942737D828002CF7EF /* BookingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingModel.swift; sourceTree = "<group>"; };
+		22B61E98274ECC43002A9DC7 /* SignInViewUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewUITest.swift; sourceTree = "<group>"; };
 		370684B91C372D2D27B386D2 /* Pods-SMPRSenarathne_COBSCComp201P_008.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMPRSenarathne_COBSCComp201P_008.release.xcconfig"; path = "Target Support Files/Pods-SMPRSenarathne_COBSCComp201P_008/Pods-SMPRSenarathne_COBSCComp201P_008.release.xcconfig"; sourceTree = "<group>"; };
 		63BE889F508BC910C7E80FC0 /* Pods-SMPRSenarathne_COBSCComp201P_008Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMPRSenarathne_COBSCComp201P_008Tests.release.xcconfig"; path = "Target Support Files/Pods-SMPRSenarathne_COBSCComp201P_008Tests/Pods-SMPRSenarathne_COBSCComp201P_008Tests.release.xcconfig"; sourceTree = "<group>"; };
 		8097B27C3162D2F971694DAB /* Pods-SMPRSenarathne_COBSCComp201P_008-SMPRSenarathne_COBSCComp201P_008UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMPRSenarathne_COBSCComp201P_008-SMPRSenarathne_COBSCComp201P_008UITests.debug.xcconfig"; path = "Target Support Files/Pods-SMPRSenarathne_COBSCComp201P_008-SMPRSenarathne_COBSCComp201P_008UITests/Pods-SMPRSenarathne_COBSCComp201P_008-SMPRSenarathne_COBSCComp201P_008UITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 			children = (
 				2257C3412737A3E100699FDF /* SMPRSenarathne_COBSCComp201P_008UITests.swift */,
 				2257C3432737A3E100699FDF /* SMPRSenarathne_COBSCComp201P_008UITestsLaunchTests.swift */,
+				22B61E98274ECC43002A9DC7 /* SignInViewUITest.swift */,
 			);
 			path = SMPRSenarathne_COBSCComp201P_008UITests;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				2257C3662737A7F200699FDF /* BookingView.swift */,
 				2264A995273BBA91008DAEA3 /* LaunchView.storyboard */,
 				227898F4273C1B5C00E0B27A /* ForgotPasswordView.swift */,
+				227CE2AD274F3A9000062AD5 /* TermsAndConditionsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -524,6 +530,7 @@
 			files = (
 				2257C35D2737A6FC00699FDF /* ParkingLotModel.swift in Sources */,
 				2257C35F2737A74B00699FDF /* SignInView.swift in Sources */,
+				227CE2AE274F3A9000062AD5 /* TermsAndConditionsView.swift in Sources */,
 				227898F5273C1B5C00E0B27A /* ForgotPasswordView.swift in Sources */,
 				2257C3292737A3E000699FDF /* ContentView.swift in Sources */,
 				2257C3652737A7B600699FDF /* HomeView.swift in Sources */,
@@ -556,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22B61E99274ECC43002A9DC7 /* SignInViewUITest.swift in Sources */,
 				2257C3422737A3E100699FDF /* SMPRSenarathne_COBSCComp201P_008UITests.swift in Sources */,
 				2257C3442737A3E100699FDF /* SMPRSenarathne_COBSCComp201P_008UITestsLaunchTests.swift in Sources */,
 			);
@@ -705,6 +713,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMPRSenarathne-COBSCComp201P-008-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "NIBM PARKING";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need the Camera to scan QR Code. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -739,6 +748,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMPRSenarathne-COBSCComp201P-008-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "NIBM PARKING";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need the Camera to scan QR Code. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

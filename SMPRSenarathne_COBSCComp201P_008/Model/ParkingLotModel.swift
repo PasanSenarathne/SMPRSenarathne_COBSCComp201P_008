@@ -12,7 +12,7 @@ struct ParkingLotModel: Identifiable{
     var parkingLotCode: String
     var parkingLotType: String
     var vehicleNo: String
-    var reservationCanceledTime: String
+    var reservationCanceled: String
     var status: String
 }
 

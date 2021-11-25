@@ -64,6 +64,9 @@ struct BookingView: View {
                                     .foregroundColor(Color.blue)
                                     .fontWeight(.semibold)
                             })
+                                .alert(isPresented: $bookingViewModel.isAlertPresent) {
+                                    Alert(title: Text(bookingViewModel.alertTitle), message: Text(bookingViewModel.alert))
+                                }
                             Spacer()
                         }
                     }
@@ -77,6 +80,9 @@ struct BookingView: View {
                             })
                                 .sheet(isPresented: $isPerentingScanner){
                                     self.scannerSheet
+                                }
+                                .alert(isPresented: $bookingViewModel.isAlertPresent) {
+                                    Alert(title: Text(bookingViewModel.alertTitle), message: Text(bookingViewModel.alert))
                                 }
                             Spacer()
                         }
