@@ -19,8 +19,16 @@ class AuthViewModelSpec: XCTestCase {
     }
     
     func testSignInWithCorrectDetails(){
+        mockAuthService.signInResult = .success(())
         let user = UserModel()
         viewModel.HandleSignIn(user: user)
         XCTAssertTrue(viewModel.isSignedIn)
+    }
+    
+    func testSignInWithInCorrectDetails(){
+        mockAuthService.signInResult = .failure(NSError(domain: "", code: -1, userInfo: nil))
+        let user = UserModel()
+        viewModel.HandleSignIn(user: user)
+        XCTAssertFalse(viewModel.isSignedIn)
     }
 }

@@ -17,14 +17,21 @@ struct SignInView: View {
         NavigationView{
             VStack{
                 Spacer()
+                VStack{
+                    Text(authViewModel.validationError).foregroundColor(Color.red).padding()
+                }
                 VStack(spacing:12){
                     TextField("Email", text: $userModel.email)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
                         .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .accessibilityIdentifier("Email")
                     SecureField("Password", text: $userModel.password)
                         .foregroundColor(Color.gray)
                         .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .accessibilityIdentifier("Password")
                     NavigationLink("Forgot Password?", destination:ForgotPasswordView())
                     Button(action: {
                         authViewModel.HandleSignIn(user : userModel)
@@ -35,7 +42,7 @@ struct SignInView: View {
                             .background(Color.blue)
                             .foregroundColor(Color.white)
                             .clipShape(Capsule())
-                    }).padding(.top,25)
+                    }).accessibilityIdentifier("Sign In").padding(.top,25)
                         .alert(isPresented: $authViewModel.isAlertPresent) {
                             Alert(title: Text("Error"), message: Text(authViewModel.alertError))
                         }
@@ -46,7 +53,7 @@ struct SignInView: View {
                 }.padding(.top,20)
                 Spacer()
                 HStack(){
-                    NavigationLink("Terms & Conditions", destination:EmptyView()).foregroundColor(.black)
+                    NavigationLink("Terms & Conditions", destination:TermsAndConditionsView()).foregroundColor(.black)
                 }.padding(.top,20)
             }
             .navigationTitle("Sign In")

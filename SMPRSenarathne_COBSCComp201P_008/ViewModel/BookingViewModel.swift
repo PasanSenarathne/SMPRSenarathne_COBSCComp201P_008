@@ -8,12 +8,38 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import CoreLocation
+import SwiftUI
+/*
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    let manager = CLLocationManager()
 
+    @Published var location: CLLocationCoordinate2D?
+
+    override init() {
+        super.init()
+        manager.delegate = self
+    }
+
+    func requestLocation() {
+        manager.requestLocation()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        location = locations.first?.coordinate
+    }
+}
+*/
 class BookingViewModel : ObservableObject{
     var db = Firestore.firestore()
     let firebaseAuth = Auth.auth()
     @Published var member = [MemberDetails]()
     @Published var avaliableParkingLots = [ParkingLotsForPicker]()
+    @Published var alert = ""
+    @Published var alertTitle = ""
+    @Published var isAlertPresent = false
+    
+ //   var locationManager = LocationManager();
     
     func GetUserDeatils(){
         member.removeAll()
@@ -55,26 +81,43 @@ class BookingViewModel : ObservableObject{
     }
     
     func Reservation(bookingInfo:BookingModel, memberID: String){
-        bookingInfo.memberID = memberID
-        let object :[String: Any] = [
-            "MemberID" : bookingInfo.memberID,
-            "ParkingLotID" : bookingInfo.selectedParkingLot,
-            "ResevationDate" : BookingDate(),
-            "ResevationTime" : BookingTime(),
-            "ResevationCanceledTime" : BookingCanceledTime(),
-            "ReservationStatus" : "Pending" ]
-        var ref: DocumentReference? = nil
-        ref = self.db.collection("Reservations").addDocument(data: object){ err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Reservation Document successfully written!")
-                self.db.collection("ParkingLots").document(bookingInfo.selectedParkingLot).updateData(["Status" : "Reserved", "VehicleNo": self.member.first?.vehicleNo ?? "", "ResevationCanceledTime": self.BookingCanceledTime()]){ err in
-                    if let err = err {
-                        print("Error writing document: \(err)")
-                    } else {
-                        print("Parking Lot Document successfully Updated!")
-                        
+        if(bookingInfo.selectedParkingLot == ""){
+            self.alert = "Please Select a Parking Lot"
+            self.alertTitle = "Error"
+            self.isAlertPresent = true
+        }
+        else if (GetDistance() > 1.00){
+            self.alert = "Your reservation request could not be accepted."
+            self.alertTitle = "Error"
+            self.isAlertPresent = true
+        }
+        else{
+            bookingInfo.memberID = memberID
+            let object :[String: Any] = [
+                "MemberID" : bookingInfo.memberID,
+                "ParkingLotID" : bookingInfo.selectedParkingLot,
+                "ResevationDate" : BookingDate(),
+                "ResevationCanceled" : BookingCanceled(),
+                "ReservationStatus" : "Pending" ]
+            var ref: DocumentReference? = nil
+          
+            ref = self.db.collection("Reservations").addDocument(data: object){ err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Reservation Document successfully written!")
+                    self.db.collection("ParkingLots").document(bookingInfo.selectedParkingLot).updateData(["Status" : "Reserved", "VehicleNo": self.member.first?.vehicleNo ?? "", "reservationCanceled":self.BookingCanceled()]){ err in
+                        if let err = err {
+                            print("Error writing document: \(err)")
+                        } else {
+                            
+                            bookingInfo.selectedParkingLot = ""
+                            self.alert = "Your booking information has been successfully captured."
+                            self.alertTitle = "Success"
+                            self.isAlertPresent = true
+                            print("Parking Lot Document successfully Updated!")
+                           
+                        }
                     }
                 }
             }
@@ -83,23 +126,33 @@ class BookingViewModel : ObservableObject{
     
     func BookingDate() -> String {
         let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "yyyy-MM-dd"
+        dateFormater.dateFormat = "yyyy/MM/dd HH:mm:ss"
         let date = dateFormater.string(from: Date() as Date)
         return date
     }
     
-    func BookingTime() -> String {
+    func BookingCanceled() -> String {
         let timeFormater = DateFormatter()
-        timeFormater.dateFormat = "HH:mm"
-        let time = timeFormater.string(from: Date() as Date)
+        timeFormater.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        let time = timeFormater.string(from: Date().addingTimeInterval(10*60) as Date)
         return time
     }
     
-    func BookingCanceledTime() -> String {
-        let timeFormater = DateFormatter()
-        timeFormater.dateFormat = "HH:mm"
-        let time = timeFormater.string(from: Date().addingTimeInterval(10*60) as Date)
-        return time
+    func GetDistance() -> Double{
+        let nibmLocation = CLLocation(latitude: 6.9065, longitude: 79.8707)
+      
+        //Arcade Independence Square
+        let userLocationInRange = CLLocation(latitude: 6.9027, longitude: 79.8688)
+        
+        //Sen-Saal Jawatta
+        let userLocationNotInRange = CLLocation(latitude: 6.8911, longitude: 79.8668)
+        
+//      locationManager.requestLocation()
+//      let userLocation = CLLocation(latitude:Double(locationManager.location?.latitude ?? 0), longitude: Double(locationManager.location?.longitude ?? 0))
+        
+        let distance = nibmLocation.distance(from: userLocationInRange)/1000
+        print(distance)
+        return distance
     }
 }
 

@@ -11,6 +11,7 @@ import SwiftUI
 struct HomeView: View {
     @State var index = 0
     @StateObject var homeViewModel = HomeViewModel()
+    @EnvironmentObject var authViewModel :AuthViewModel
     var body: some View {
         NavigationView{
             VStack{
@@ -62,7 +63,7 @@ struct HomeView: View {
                 Spacer(minLength: 0)
             }
             .padding(.top)
-            .navigationTitle("Welcome Back!")
+            .navigationTitle(authViewModel.isSignedIn ? "Welcome Back" : "Home")
             .onAppear(){
                 self.homeViewModel.GetAvaliableSlots()
                 self.homeViewModel.GetReservedSlots()
@@ -72,18 +73,10 @@ struct HomeView: View {
 }
 
 struct ParkingLotsGridView : View {
+    @StateObject var homeViewModel = HomeViewModel()
     var Data : [ParkingLotModel]
     var tabIndex : Int
     var columns = Array(repeating: GridItem(.flexible(), spacing:20), count: 2)
-    @State private var timeRemaing = 100;
-    @State private var isActive = true;
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    func ConvertToTimeFormat(timeRemaing : Int) -> String{
-        let minutes = timeRemaing / 60
-        let seconds = timeRemaing % 60
-        return String(format: "%02i:%02i", minutes,seconds)
-    }
     
     var body: some View{
         ScrollView{
@@ -104,21 +97,7 @@ struct ParkingLotsGridView : View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
                                     .padding(.top,10)
-                                Text(ConvertToTimeFormat(timeRemaing: timeRemaing))
-                                    .foregroundColor(.white)
-                                    .padding(.top,10)
                             }
-                        }
-                        .onReceive(timer){time in
-                            if self.timeRemaing > 0 {
-                                self.timeRemaing -= 1
-                            }
-                        }
-                        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)){
-                            _ in self.isActive = false
-                        }
-                        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)){
-                            _ in self.isActive = true
                         }
                         .padding()
                         .background(Color(.lightGray))

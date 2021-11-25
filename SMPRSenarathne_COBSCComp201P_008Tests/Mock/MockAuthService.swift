@@ -10,7 +10,8 @@ import Foundation
 
 final class MockAuthService : AuthServiceProtocol{
     
+    var signInResult: Result<Void, Error> = .success(())
     func SignIn(email: String, password: String, completion: @escaping (Result<Void, Error>)->  Void ){
-        completion(.success(()))
+        completion(signInResult)
     }
 }
